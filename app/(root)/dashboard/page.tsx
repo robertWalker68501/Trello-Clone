@@ -1,7 +1,23 @@
+'use client';
+
+import { useUser } from '@clerk/nextjs';
+
 const Dashboard = () => {
+  const { user } = useUser();
+
   return (
-    <div className='min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50'>
-      <h1>Dashboard</h1>
+    <div className='min-h-screen bg-gray-50'>
+      <main className='container mx-auto px-4 py-6 sm:py-8'>
+        <div className='mb-6 sm:mb-8'>
+          <h1 className='mb-2 text-2xl font-bold text-gray-900 sm:text-3xl'>
+            Welcome back,{' '}
+            {user?.firstName ?? user?.emailAddresses[0].emailAddress}! 👋
+          </h1>
+          <p className='text-gray-600'>
+            Here&#39;s what&#39;s happening with your boards today.
+          </p>
+        </div>
+      </main>
     </div>
   );
 };

@@ -4,12 +4,35 @@ import { FiTrello } from 'react-icons/fi';
 import SiteLogo from '@/components/shared/SiteLogo';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { useUser } from '@clerk/nextjs';
+import { UserButton, useUser } from '@clerk/nextjs';
 import { LuArrowRight } from 'react-icons/lu';
+import { usePathname } from 'next/navigation';
 
 const Navbar = () => {
   const { isSignedIn, user } = useUser();
+  const pathname = usePathname();
 
+  const isDashboardPage = pathname === '/dashboard';
+  const isBoardPage = pathname.startsWith('/boards/');
+
+  if (isDashboardPage) {
+    return (
+      <nav className='flex items-center justify-between'>
+        <div>
+          <SiteLogo
+            href='/'
+            icon={FiTrello}
+          />
+        </div>
+
+        <div className='flex items-center space-x-2 sm:space-x-4'>
+          <UserButton />
+        </div>
+      </nav>
+    );
+  }
+
+  // Default navbar
   return (
     <nav className='flex items-center justify-between'>
       <div>
